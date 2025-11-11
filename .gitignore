@@ -1,0 +1,25 @@
+﻿# IDE
+.idea/
+.vscode/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+.env
+
+# Data (exclude from repo)
+data/
+*.mat
+*.npz
+
+# Models/outputs/logs
+*.pt
+*.pth
+runs/
+logs/
+checkpoints/
+
+# OS
+.DS_Store
+Thumbs.db
