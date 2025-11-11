@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>STA-Net IB 模型架构图</title>
+  <style>
+    body { margin: 0; padding: 16px; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Microsoft Yahei", sans-serif; background: #0b1021; color: #e6e9ef; }
+    .container { max-width: 1400px; margin: 0 auto; }
+    h1 { font-weight: 600; font-size: 20px; margin: 0 0 12px; }
+    .toolbar { display: flex; gap: 8px; margin-bottom: 12px; }
+    button { background: #1e263b; color: #e6e9ef; border: 1px solid #2a3250; border-radius: 6px; padding: 6px 10px; cursor: pointer; }
+    button:hover { background: #27304a; }
+    .mermaid { background: #0e1430; border: 1px solid #27304a; border-radius: 8px; padding: 12px; overflow: auto; }
+    footer { margin-top: 12px; font-size: 12px; color: #9aa3b2; }
+  </style>
+  <script>
+    function downloadSVG() {
+      const a = document.createElement('a');
+      a.href = 'ib_architecture.svg';
+      a.download = 'ib_architecture.svg';
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+    }
+  </script>
+</head>
+<body>
+  <div class="container">
+    <h1>STA-Net IB 模型架构图</h1>
+    <div class="toolbar">
+      <button onclick="downloadSVG()">下载 SVG</button>
+    </div>
+    <div class="mermaid">
+      <img src="ib_architecture.svg" alt="STA-Net IB Architecture" style="max-width:100%;height:auto;border-radius:8px;border:1px solid #27304a;" />
+    </div>
+    <footer>此页面使用本地静态 SVG，不依赖外部网址；可直接下载或打印为 PDF。</footer>
+  </div>
+</body>
+</html>

@@ -1,0 +1,207 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="950" viewBox="0 0 1400 950">
+  <defs>
+    <style>
+      .bg { fill: #0b1021; }
+      .panel { fill: #0e1430; stroke: #27304a; stroke-width: 2; rx: 10; }
+      .box { fill: #1e263b; stroke: #2a3250; stroke-width: 2; rx: 8; }
+      .accent { fill: #233052; }
+      .text { fill: #e6e9ef; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Microsoft Yahei", sans-serif; }
+      .h1 { font-size: 22px; font-weight: 600; }
+      .h2 { font-size: 16px; font-weight: 600; }
+      .t { font-size: 13px; }
+      .t-sm { font-size: 12px; fill: #c7cbd4; }
+      .arrow { stroke: #9aa3b2; stroke-width: 2; fill: none; marker-end: url(#arrowHead); }
+      .arrowBold { stroke: #b8c0cc; stroke-width: 3; fill: none; marker-end: url(#arrowHeadBold); }
+      .cap { fill: #c7cbd4; font-size: 12px; }
+      .chip { fill: #334063; stroke: #475686; stroke-width: 1; rx: 6; }
+    </style>
+    <marker id="arrowHead" markerWidth="10" markerHeight="10" refX="10" refY="3" orient="auto">
+      <path d="M0,0 L10,3 L0,6 Z" fill="#9aa3b2"/>
+    </marker>
+    <marker id="arrowHeadBold" markerWidth="12" markerHeight="12" refX="12" refY="4" orient="auto">
+      <path d="M0,0 L12,4 L0,8 Z" fill="#b8c0cc"/>
+    </marker>
+  </defs>
+
+  <rect class="bg" x="0" y="0" width="1400" height="950"/>
+  <text class="text h1" x="24" y="42">STA-Net IB 模型架构图</text>
+
+  <!-- Inputs -->
+  <g transform="translate(20,70)">
+    <rect class="panel" x="0" y="0" width="350" height="180"/>
+    <text class="text h2" x="12" y="26">Inputs</text>
+    <g transform="translate(12,46)">
+      <rect class="box" x="0" y="0" width="155" height="60"/>
+      <text class="text t" x="10" y="24">EEG Input</text>
+      <text class="text t-sm" x="10" y="44">(16,16,600,1)</text>
+    </g>
+    <g transform="translate(183,46)">
+      <rect class="box" x="0" y="0" width="155" height="60"/>
+      <text class="text t" x="10" y="24">fNIRS Input</text>
+      <text class="text t-sm" x="10" y="44">(11,16,16,30,2)</text>
+    </g>
+  </g>
+
+  <!-- Block1 -->
+  <g transform="translate(400,70)">
+    <rect class="panel" x="0" y="0" width="480" height="220"/>
+    <text class="text h2" x="12" y="26">Conv Block 1</text>
+    <g transform="translate(12,46)">
+      <rect class="box" x="0" y="0" width="145" height="60"/>
+      <text class="text t" x="10" y="22">EEG Conv3D + BN + ELU</text>
+    </g>
+    <g transform="translate(168,46)">
+      <rect class="box" x="0" y="0" width="145" height="60"/>
+      <text class="text t" x="10" y="22">fNIRS Conv3D + BN + ELU</text>
+    </g>
+    <g transform="translate(324,46)">
+      <rect class="box" x="0" y="0" width="145" height="60"/>
+      <text class="text t" x="10" y="22">EEGFusion Conv3D + BN + ELU</text>
+    </g>
+    <g transform="translate(168,130)">
+      <rect class="accent" x="0" y="0" width="145" height="70" rx="8" stroke="#2a3250" stroke-width="2"/>
+      <text class="text t" x="10" y="26">FGA (channel pooling + TAP + sigmoid)</text>
+      <text class="text t-sm" x="10" y="48">Guided fusion</text>
+    </g>
+  </g>
+
+  <!-- Block2 -->
+  <g transform="translate(910,70)">
+    <rect class="panel" x="0" y="0" width="470" height="260"/>
+    <text class="text h2" x="12" y="26">Conv Block 2 + GAP</text>
+    <g transform="translate(12,46)">
+      <rect class="box" x="0" y="0" width="145" height="70"/>
+      <text class="text t" x="10" y="24">EEG Conv3D + BN + ELU</text>
+      <text class="text t-sm" x="10" y="48">→ GAP</text>
+    </g>
+    <g transform="translate(168,46)">
+      <rect class="box" x="0" y="0" width="145" height="70"/>
+      <text class="text t" x="10" y="24">fNIRS Conv3D + BN + ELU</text>
+      <text class="text t-sm" x="10" y="48">→ GAP</text>
+    </g>
+    <g transform="translate(324,46)">
+      <rect class="box" x="0" y="0" width="145" height="70"/>
+      <text class="text t" x="10" y="24">EEGFusion Conv3D + BN + ELU</text>
+      <text class="text t-sm" x="10" y="48">→ GAP</text>
+    </g>
+  </g>
+
+  <!-- EF Attention -->
+  <g transform="translate(20,280)">
+    <rect class="panel" x="0" y="0" width="620" height="260"/>
+    <text class="text h2" x="12" y="26">EEG-fNIRS Attention</text>
+    <g transform="translate(12,46)">
+      <rect class="chip" x="0" y="0" width="170" height="60"/>
+      <text class="text t" x="10" y="24">Q: Flatten + Dense(emb=256)</text>
+    </g>
+    <g transform="translate(206,46)">
+      <rect class="chip" x="0" y="0" width="190" height="60"/>
+      <text class="text t" x="10" y="24">K: pos embedding + Dense(emb=256)</text>
+    </g>
+    <g transform="translate(418,46)">
+      <rect class="chip" x="0" y="0" width="190" height="60"/>
+      <text class="text t" x="10" y="24">Multi-Head Attention (h=10, d=256, drop=0.5)</text>
+    </g>
+    <g transform="translate(206,140)">
+      <rect class="box" x="0" y="0" width="190" height="50"/>
+      <text class="text t" x="10" y="22">PLCC loss (1 - pearson_r)</text>
+    </g>
+  </g>
+
+  <!-- IBs -->
+  <g transform="translate(660,280)">
+    <rect class="panel" x="0" y="0" width="360" height="220"/>
+    <text class="text h2" x="12" y="26">Information Bottleneck (beta, latent_dim)</text>
+    <g transform="translate(12,46)">
+      <rect class="box" x="0" y="0" width="100" height="60"/>
+      <text class="text t" x="10" y="24">IB(eeg_ib)</text>
+    </g>
+    <g transform="translate(124,46)">
+      <rect class="box" x="0" y="0" width="120" height="60"/>
+      <text class="text t" x="10" y="24">IB(eegfusion_ib)</text>
+    </g>
+    <g transform="translate(256,46)">
+      <rect class="box" x="0" y="0" width="100" height="60"/>
+      <text class="text t" x="10" y="24">IB(fnirs_ib)</text>
+    </g>
+  </g>
+
+  <!-- Heads -->
+  <g transform="translate(1040,280)">
+    <rect class="panel" x="0" y="0" width="340" height="280"/>
+    <text class="text h2" x="12" y="26">Predictions + Weighting</text>
+    <g transform="translate(12,46)">
+      <rect class="box" x="0" y="0" width="150" height="60"/>
+      <text class="text t" x="10" y="22">EEG head: Dense 2 → softmax</text>
+      <text class="text t-sm" x="10" y="44">(name: eeg_output)</text>
+    </g>
+    <g transform="translate(12,120)">
+      <rect class="box" x="0" y="0" width="150" height="50"/>
+      <text class="text t" x="10" y="22">EEGFusion head: Dense 2 → softmax</text>
+    </g>
+    <g transform="translate(12,186)">
+      <rect class="box" x="0" y="0" width="150" height="50"/>
+      <text class="text t" x="10" y="22">fNIRS head: Dense 2 → softmax</text>
+    </g>
+    <g transform="translate(176,46)">
+      <rect class="chip" x="0" y="0" width="150" height="70"/>
+      <text class="text t" x="10" y="24">p_weight = softmax(Dense(1)</text>
+      <text class="text t-sm" x="10" y="44">on IB features) → expand_dims</text>
+    </g>
+    <g transform="translate(176,130)">
+      <rect class="box" x="0" y="0" width="150" height="40"/>
+      <text class="text t" x="10" y="24">Concatenate axis=1</text>
+    </g>
+    <g transform="translate(176,180)">
+      <rect class="box" x="0" y="0" width="150" height="40"/>
+      <text class="text t" x="10" y="24">Multiply with p_weight</text>
+    </g>
+    <g transform="translate(176,230)">
+      <rect class="box" x="0" y="0" width="150" height="40"/>
+      <text class="text t" x="10" y="24">ReduceSum axis=1</text>
+      <text class="text t-sm" x="10" y="38">(name: class_output)</text>
+    </g>
+  </g>
+
+  <!-- Arrows: Inputs -> Block1 -->
+  <path class="arrow" d="M370,120 C385,120 390,120 400,120"/>
+  <path class="arrow" d="M370,170 C385,170 390,170 400,170"/>
+  <!-- Block1 -> FGA -->
+  <path class="arrow" d="M555,116 C555,116 555,116 555,160"/>
+  <path class="arrow" d="M710,116 C710,116 710,116 710,160"/>
+  <path class="arrow" d="M865,116 C865,116 865,116 865,160"/>
+  <!-- FGA -> Block2 (EEGFusion2) -->
+  <path class="arrowBold" d="M735,205 C820,205 860,205 910,205"/>
+  <!-- Block1 -> Block2 (EEG2/FNIRS2) -->
+  <path class="arrow" d="M555,116 C820,116 860,116 910,116"/>
+  <path class="arrow" d="M710,116 C820,146 860,146 910,146"/>
+
+  <!-- Block2 -> EF Attention (Q/K/MHA) -->
+  <path class="arrow" d="M1184,140 C1184,230 630,230 630,310"/>
+  <path class="arrow" d="M1040,140 C1040,230 430,230 430,310"/>
+  <path class="arrowBold" d="M1266,140 C1266,230 840,230 840,310"/>
+
+  <!-- Attention -> features and loss -->
+  <path class="arrow" d="M840,370 C910,370 930,370 960,370"/>
+  <text class="cap" x="875" y="360">fusion_out</text>
+  <path class="arrow" d="M840,390 C910,390 930,410 960,410"/>
+  <text class="cap" x="875" y="408">fnirs_weighted</text>
+  <path class="arrow" d="M530,340 C530,340 530,380 530,420"/>
+  <text class="cap" x="472" y="350">Q</text>
+  <path class="arrow" d="M630,370 C630,370 630,420 630,420"/>
+  <text class="cap" x="640" y="390">MHA</text>
+
+  <!-- To IBs -->
+  <path class="arrow" d="M1030,370 C1030,410 900,410 900,420"/>
+  <path class="arrow" d="M1030,410 C1030,470 780,470 780,490"/>
+  <path class="arrow" d="M1030,450 C1030,520 1020,520 1020,520"/>
+
+  <!-- Heads connections -->
+  <path class="arrow" d="M672,340 C1200,340 1200,340 1200,326"/>
+  <path class="arrow" d="M780,520 C1140,520 1140,520 1140,500"/>
+  <path class="arrow" d="M900,420 C1140,420 1140,420 1140,366"/>
+  <path class="arrow" d="M1020,520 C1020,520 1180,520 1180,520"/>
+</svg>
+
+
+
