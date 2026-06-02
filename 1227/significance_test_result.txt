@@ -1,0 +1,2 @@
+Paired t-test p-value: 0.05545
+Wilcoxon p-value:      0.05043

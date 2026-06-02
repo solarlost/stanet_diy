@@ -1,0 +1,10 @@
+beta,align_weight,acc,file
+0.0005,0.01,0.808333,subject_01_efib_b0.0005_w0.01.json
+0.0005,0.005,0.785000,subject_01_efib_b0.0005_w0.005.json
+0.0005,0.001,0.785000,subject_01_efib_b0.0005_w0.001.json
+0.0002,0.01,0.760000,subject_01_efib_b0.0002_w0.01.json
+0.0002,0.005,0.796667,subject_01_efib_b0.0002_w0.005.json
+0.0002,0.001,0.785000,subject_01_efib_b0.0002_w0.001.json
+0.0001,0.01,0.773333,subject_01_efib_b0.0001_w0.01.json
+0.0001,0.005,0.795000,subject_01_efib_b0.0001_w0.005.json
+0.0001,0.001,0.698333,subject_01_efib_b0.0001_w0.001.json

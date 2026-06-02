@@ -1,25 +1,30 @@
-﻿# IDE
+﻿# IDE and OS files
 .idea/
-.vscode/
+.DS_Store
+*.swp
 
-# Python
+# Python cache and virtual environments
 __pycache__/
 *.pyc
 .venv/
-.env
+.venv1/
 
-# Data (exclude from repo)
-data/
-*.mat
+# Log files
+logs/
+*.log
+
+# Results and output files
+results/
+*.json
+*.csv
+*.png
+*.txt
 *.npz
 
-# Models/outputs/logs
-*.pt
-*.pth
-runs/
-logs/
-checkpoints/
+# Data files - Assuming data is large and shouldn't be in git
+data/
 
-# OS
-.DS_Store
-Thumbs.db
+# Large model files
+*.h5
+*.pth
+*.pt
